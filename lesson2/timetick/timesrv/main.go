@@ -34,15 +34,12 @@ func main() {
 		}
 	}()
 
-	// for {
-	select {
-	case <-ctx.Done():
-		log.Println("done")
-		l.Close()
-		wg.Wait()
-		log.Println("exit")
-	}
-	// }
+	<-ctx.Done()
+	log.Println("done")
+	l.Close()
+	wg.Wait()
+	log.Println("exit")
+
 }
 
 func sendTime(ctx context.Context, conn net.Conn, wg *sync.WaitGroup) {
