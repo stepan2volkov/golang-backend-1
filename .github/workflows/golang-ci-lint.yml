@@ -14,5 +14,6 @@ jobs:
       - name: Lint lesson2 with golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
+          go-version: 1.16.x
           version: v1.35.1
           working-directory: lesson2
