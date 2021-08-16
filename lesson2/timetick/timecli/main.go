@@ -12,8 +12,7 @@ import (
 )
 
 func main() {
-	// nolint
-	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT)
+	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT) //nolint
 
 	d := net.Dialer{
 		Timeout:   time.Second,

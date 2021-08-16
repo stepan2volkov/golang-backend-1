@@ -12,8 +12,7 @@ import (
 )
 
 func main() {
-	// nolint
-	ctx, _ := signal.NotifyContext(context.Background(), os.Interrupt)
+	ctx, _ := signal.NotifyContext(context.Background(), os.Interrupt) //nolint
 
 	cfg := net.ListenConfig{
 		KeepAlive: time.Minute,
