@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	// nolint
 	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT)
 
 	d := net.Dialer{

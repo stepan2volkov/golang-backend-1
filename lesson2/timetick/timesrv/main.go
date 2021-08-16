@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	// nolint
 	ctx, _ := signal.NotifyContext(context.Background(), os.Interrupt)
 
 	cfg := net.ListenConfig{
