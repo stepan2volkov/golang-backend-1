@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"log"
 	"net"
@@ -22,5 +23,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(io.Copy(os.Stdout, conn))
+	if _, err := io.Copy(os.Stdout, conn); err == nil {
+		fmt.Println("Connection closed")
+	} else if err != nil {
+		fmt.Printf("Error occured: %v\n", err)
+	}
 }
