@@ -52,7 +52,11 @@ func sendTime(ctx context.Context, conn net.Conn, wg *sync.WaitGroup) {
 		case <-ctx.Done():
 			return
 		case t := <-tck.C:
-			fmt.Fprintf(conn, "now: %s\n", t)
+			_, err := fmt.Fprintf(conn, "now: %s\n", t)
+			if err != nil {
+				log.Println(err)
+				return
+			}
 		}
 	}
 }
