@@ -8,12 +8,11 @@ import (
 	"net"
 	"os"
 	"os/signal"
-	"syscall"
 	"time"
 )
 
 func main() {
-	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT) //nolint
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt) //nolint
 
 	d := net.Dialer{
 		Timeout:   time.Second,
@@ -23,9 +22,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if _, err := io.Copy(os.Stdout, conn); err == nil {
-		fmt.Println("Connection closed")
-	} else if err != nil {
-		fmt.Printf("Error occured: %v\n", err)
-	}
+	go func() {
+		if _, err := io.Copy(os.Stdout, conn); err == nil {
+			fmt.Println("Connection closed")
+		} else if err != nil {
+			fmt.Printf("Error occured: %v\n", err)
+		}
+		cancel()
+	}()
+	<-ctx.Done()
 }
